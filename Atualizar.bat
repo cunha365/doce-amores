@@ -1,23 +1,33 @@
 @echo off
 echo ==============================
-echo  Atualizando site Doce Amores
+echo   Atualizando site Doce Amores
 echo ==============================
 
-REM Puxa mudanças do GitHub antes de enviar
-git pull origin main --rebase
+set /p pullfirst="Deseja atualizar do GitHub antes de enviar? (s/n): "
 
-REM Adiciona todos os arquivos
+if /i "%pullfirst%"=="s" (
+    echo.
+    echo >> Puxando atualizações do GitHub...
+    git pull origin main --rebase
+)
+
+echo.
+echo >> Adicionando alterações...
 git add .
 
-REM Cria o commit com data/hora
-set datetime=%date% %time%
-git commit -m "Atualização automática em %datetime%"
+echo.
+set /p msg="Digite a mensagem do commit: "
+if "%msg%"=="" set msg=Atualização automática
 
-REM Envia para o GitHub
+git commit -m "%msg%"
+
+echo.
+echo >> Enviando para o GitHub...
 git push origin main
 
+echo.
 echo ==============================
-echo  Site atualizado com sucesso!
-echo  Verifique em: https://www.doceamores.com.br
+echo   Site atualizado com sucesso!
+echo   Verifique em: https://www.doceamores.com.br
 echo ==============================
 pause
