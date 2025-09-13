@@ -3,6 +3,9 @@ echo ==============================
 echo  Atualizando site Doce Amores
 echo ==============================
 
+REM Puxa mudanças do GitHub antes de enviar
+git pull origin main --rebase
+
 REM Adiciona todos os arquivos
 git add .
 
